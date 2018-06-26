@@ -215,8 +215,8 @@ iOS 10 推出 Service Extension 扩展，通过在客户端对接收到的内容
 
 ```objc
 //apns 添加
-    "image" : "https://p1.bpimg.com/524586/475bc82ff016054ds.jpg"
-    //这里给一个示例图床链接
+"image" : "https://p1.bpimg.com/524586/475bc82ff016054ds.jpg"
+//这里给一个示例图床链接
 ```
 
 ```objc
@@ -266,7 +266,7 @@ iOS 10 推出 Service Extension 扩展，通过在客户端对接收到的内容
 需要在这个字段里让系统知道，哪个 ID 字段会触发 extension
 ![](https://s1.ax1x.com/2018/06/13/COaBb6.png)
 
-这个字段的值，必须和 Notification Actions 的 category id 值一样，这样收到推送时，就会同时触发 Notification content + Notification actions。
+这个字段的值，**必须**和 Notification Actions 的 category id 值一样，这样收到推送时，就会同时触发 Notification content + Notification actions。
 2）自定义界面
 自定义界面时会发现系统会自动展示一遍收到的推送内容，这很可能和你的内容有重复，通过添加如下字段可以隐藏系统默认：
 3）界面尺寸自定义
@@ -288,14 +288,14 @@ iOS 10 推出 Service Extension 扩展，通过在客户端对接收到的内容
 * 构造一条消息
 
 ```objc
-    NIMMessage *message = [NIMMessage new];
-    NIMImageObject * imageObject = [[NIMImageObject alloc] initWithImage:image];
-    NIMImageOption *option  = [[NIMImageOption alloc] init];
-    option.compressQuality  = 0.8;
-    imageObject.option = option;
-    message.messageObject = imageObject;
+NIMMessage *message = [NIMMessage new];
+NIMImageObject * imageObject = [[NIMImageObject alloc] initWithImage:image];    NIMImageOption *option  = [[NIMImageOption alloc] init];
+option.compressQuality  = 0.8;
+imageObject.option = option;
+message.messageObject = imageObject;
 ```
-2)在 chatManager 的 `uploadAttachmentSuccess:forMessage:` 回调里获取上传图片对应的 nos 图床链接地址，并填充 NIMMessage 的 message.apnsPayload，由云信服务器去解析该字段，并最终推送给 APNs 服务。
+
+* 在 chatManager 的 `uploadAttachmentSuccess:forMessage:` 回调里获取上传图片对应的 nos 图床链接地址，并填充 `NIMMessage` 的 `message.apnsPayload`，由云信服务器去解析该字段，并最终推送给 APNs 服务。
 
 ```objc
 #pragma mark - ChatManagerDelegate
@@ -326,4 +326,6 @@ iOS 10 推出 Service Extension 扩展，通过在客户端对接收到的内容
                         };
 }
 ```
+完整的示例代码可以参考代码里的 `NTESMainViewController` 类里的实现代码，不过需要注意的是直接运行代码是收不到推送的，原因是证书环境不对应；如果需要看推送的效果，可以 [查看云信富文本推送](https://www.pgyer.com/8uK5) 应用的推送效果。
+
 
