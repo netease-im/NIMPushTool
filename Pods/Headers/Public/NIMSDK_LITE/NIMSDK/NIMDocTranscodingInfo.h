@@ -1,0 +1,1 @@
+../../../../NIMSDK_LITE/NIMSDK/NIMSDK.framework/Headers/NIMDocTranscodingInfo.h

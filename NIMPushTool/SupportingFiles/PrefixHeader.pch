@@ -1,0 +1,19 @@
+//
+//  PrefixHeader.pch
+//  NIMPushTool
+//
+//  Created by emily on 2018/6/21.
+//  Copyright © 2018 NIM. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import <NIMSDK/NIMSDK.h>
+
+#import "UIView+Toast.h"
+#import "UIView+NTES.h"
+
+#endif /* PrefixHeader_pch */
